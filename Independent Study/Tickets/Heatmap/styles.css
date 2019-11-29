@@ -1,0 +1,110 @@
+body {
+  font: 16px sans-serif;
+}
+h5,
+h6,
+.h5,
+.h6 {
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+h5,
+.h5 {
+  color: #f0b00e;
+   !important;
+  font-size: 1.2rem;
+}
+
+.h6,
+h6 {
+  font-size: 0.9rem;
+}
+
+/* apply google fonts to specific styles */
+/* body,
+    p,
+    mark {
+        font-family: 'Merriweather', serif;
+        font-weight: 300;
+    } */
+
+h5,
+h6,
+.h5,
+.h6 {
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+h1,
+h2,
+h3,
+h4,
+.h1,
+.h2,
+.h3,
+.h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+}
+
+.display-1,
+.display-2,
+.display-3,
+.display-4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+}
+
+.vh100 {
+  height: 100vh;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.box {
+  border-radius: 0 1rem 0 1rem;
+  background-color: #f7f7f7;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* colors */
+.red {
+  background-color: #670000;
+}
+
+.blue {
+  background-color: darkgreen;
+}
+
+.white-type {
+  color: #ffffff !important;
+}
+
+/* footer */
+.dark-footer {
+  background-color: #666;
+  color: #eee;
+  padding: 2rem 0 4rem 0;
+  margin-top: 2rem;
+}
+
+.dark-footer a {
+  color: #ddd;
+  text-decoration: underline;
+}
+
+.dark-footer a:hover {
+  color: #bbb;
+  text-decoration: underline;
+}

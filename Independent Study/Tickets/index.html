@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>Independent Study</title>
+
+	<!-- Bootstrap CSS -->
+	<link href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+	<!-- Google Fonts stylesheet -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet" />
+
+	<!-- Other styles -->
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script src="scripts.js"></script>
+
+
+	<!-- CSS for this file -->
+	<style>
+		/* apply google fonts to specific styles */
+		h5,
+		h6,
+		.h5,
+		.h6 {
+			text-transform: uppercase;
+			font-family: "Montserrat", sans-serif;
+			font-weight: 700;
+			letter-spacing: 2px;
+		}
+
+		h5,
+		.h5 {
+			color: #f0b00e;
+			 !important;
+			font-size: 1.2rem;
+		}
+
+		.h6,
+		h6 {
+			font-size: 0.9rem;
+		}
+
+		/* apply google fonts to specific styles */
+		/* body,
+        p,
+        mark {
+            font-family: 'Merriweather', serif;
+            font-weight: 300;
+        } */
+
+		h5,
+		h6,
+		.h5,
+		.h6 {
+			text-transform: uppercase;
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 700;
+			letter-spacing: 0.6px;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		.h1,
+		.h2,
+		.h3,
+		.h4 {
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 700;
+			letter-spacing: -0.6px;
+		}
+
+		.display-1,
+		.display-2,
+		.display-3,
+		.display-4 {
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 700;
+			letter-spacing: -1.2px;
+		}
+
+		.vh100 {
+			height: 100vh;
+		}
+
+		.no-margin {
+			margin: 0;
+		}
+
+		.box {
+			border-radius: 0 1rem 0 1rem;
+			background-color: #f7f7f7;
+			padding: 1rem;
+			margin-bottom: 1rem;
+		}
+
+		/* colors */
+		.red {
+			background-color: #670000;
+		}
+
+		.blue {
+			background-color: darkgreen;
+		}
+
+		.white-type {
+			color: #ffffff !important;
+		}
+
+		/* footer */
+		.dark-footer {
+			background-color: #666;
+			color: #eee;
+			padding: 2rem 0 4rem 0;
+			margin-top: 2rem;
+		}
+
+		.dark-footer a {
+			color: #ddd;
+			text-decoration: underline;
+		}
+
+		.dark-footer a:hover {
+			color: #bbb;
+			text-decoration: underline;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- jumbotron -->
+	<div class="jumbotron blue white-type">
+		<div class="container">
+			<h5>Independent Study</h5>
+			<h1 class="display-4">Tickets in Athens</h1>
+			<p class="lead">
+				See what days of the week during the months of 2019 had the most parking tickets in the city of Athens.
+			</p>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<h6 class="chart-title">January</h6>
+				<div id="chart1" class="dv-container"></div>
+			</div>
+			<div class="col-md-3">
+				<h6 class="chart-title">February</h6>
+				<div id="chart2" class="dv-container"></div>
+			</div>
+			<div class="col-md-3">
+				<h6 class="chart-title">March</h6>
+				<div id="chart3" class="dv-container"></div>
+			</div>
+			<div class="col-md-3">
+				<h6 class="chart-title">April</h6>
+				<div id="chart4" class="dv-container"></div>
+			</div>
+			<div class="col-md-3">
+				<h6 class="chart-title">May</h6>
+				<div id="chart5" class="dv-container"></div>
+			</div>
+			<div class="col-md-3">
+				<h6 class="chart-title">June</h6>
+				<div id="chart6" class="dv-container"></div>
+			</div>
+			<div class="col-md-3">
+				<h6 class="chart-title">July</h6>
+				<div id="chart7" class="dv-container"></div>
+			</div>
+			<div class="col-md-3">
+				<h6 class="chart-title">August</h6>
+				<div id="chart8" class="dv-container"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--  Footer -->
+	<footer class="dark-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<p>Taylor Johnston © 2019</p>
+				</div>
+				<div class="col">
+					<p class="float-right"><a href="#">Back to top</a></p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- JavaScript dependencies: first jQuery, then Popper.js, then Bootstrap JS -->
+	<script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+	<script src="https://unpkg.com/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.min.js"></script>
+
+	<script>
+		/**
+		 * pieChart module.
+		 * @module pieChart
+		 * @type {function}
+		 */
+		function pieChart() {
+			'use strict';
+
+			/** public default settings, configurable by the public api below */
+			var margin = {
+				top: 0,
+				right: 0,
+				bottom: 0,
+				left: 0
+			};
+			var innerRadius = 0;
+			var value = 'value';
+			var showTooltip = true;
+			var tooltipHtml;
+
+			/** private settings, vars */
+			var width = 100;
+			var height = 100;
+			var colors = d3.scale.ordinal().range(['#d2d2d2', '#e2e2e2']);
+			var outerRadius = null;
+			var tweenTime = 1000;
+			var enterAngles = {
+				startAngle: Math.PI * 2,
+				endAngle: Math.PI * 2
+			};
+
+			var svg;
+			var pie;
+			var arc;
+			var paths;
+			var innerWidth = width - margin.left - margin.right;
+			var innerHeight = height - margin.top - margin.bottom;
+			var radius = Math.min(innerWidth, innerHeight) / 2;
+			var dvalue = d => d[value];
+
+			// namespaced classes
+			const DATA_VIS_CLASS = 'dv';
+			const DATA_VIS_CONTAINER_CLASS = `${DATA_VIS_CLASS}-container`;
+			const MAX_EXTENT_CLASS = `${DATA_VIS_CLASS}-extent-max`;
+			const MIN_EXTENT_CLASS = `${DATA_VIS_CLASS}-extent-min`;
+			const PIE_CHART_CLASS = `${DATA_VIS_CLASS}-pie`;
+			const PIE_SLICE_CLASS = `${DATA_VIS_CLASS}-pie-slice`;
+			const FILL_ODD_CLASS = `${DATA_VIS_CLASS}-fill-odd`;
+			const FILL_EVEN_CLASS = `${DATA_VIS_CLASS}-fill-even`;
+			const PIE_BKGD_CLASS = `${DATA_VIS_CLASS}-pie-background`;
+
+			// offset values for tooltip placement
+			var tooltipXOffset = 0;
+			var tooltipYOffset = 10;
+
+			/**
+			 * Apply offset values for tooltip placement
+			 */
+			function tooltipOffset() {
+				return [tooltipYOffset, tooltipXOffset];
+			}
+
+			function tooltipHtml(d) {
+				return d;
+			}
+
+			var tooltip = d3.tip()
+				.attr('class', 'd3-tip')
+				.html(function(d) {
+					return tooltipHtml(d);
+				})
+				.direction('n')
+				.offset(tooltipOffset);
+
+			/**
+			 * Updates axes if showAxes is true
+			 */
+			function updateAxes() {
+				if (showAxes) {
+					if (yAxis) {
+						yAxis.tickSize(-innerWidth);
+					}
+					if (xAxisG) {
+						xAxisG.transition()
+							.duration(transitionTime)
+							.ease(transitionType)
+							.attr('transform', `translate(0, ${innerHeight + 3})`)
+							.call(xAxis);
+					}
+					if (yAxisG) {
+						yAxisG.transition()
+							.duration(transitionTime)
+							.ease(transitionType)
+							.call(yAxis);
+					}
+				}
+			}
+
+			/**
+			 * Sort descending comparator
+			 * @param {object} a - data object
+			 * @param {object} b - data object
+			 */
+
+			/**
+			 * Tween arcs in
+			 * @param {object} a - data object
+			 * @param {object} b - data object
+			 */
+			function arcTween(a) {
+				var interpolate = d3.interpolate(this._current, a);
+				this._current = interpolate(0);
+				return t => arc(interpolate(t));
+			}
+
+			/** Tween arcs out */
+			function arcTweenOut() {
+				var interpolate = d3.interpolate(this._current, {
+					startAngle: Math.PI * 2,
+					endAngle: Math.PI * 2,
+					value: 0
+				});
+				this._current = interpolate(0);
+				return t => arc(interpolate(t));
+			}
+
+			/**
+			 * Creates new chart or updates existing chart
+			 * @param {selection} DOM selection for chart
+			 */
+			function chart(selection) {
+				selection.each(function(data) {
+					innerWidth = width - margin.left - margin.right;
+					innerHeight = height - margin.top - margin.bottom;
+					radius = Math.min(innerWidth, innerHeight) / 2;
+					pie = d3.layout.pie()
+						.value(dvalue)
+						.sort(null);
+					data = data.sort();
+
+					// d3 pie layout can not render 0s
+					// if all 0s, then let data = []
+					var sum = d3.sum(data, dvalue);
+					if (sum === 0) {
+						data = [];
+					}
+
+					arc = d3.svg.arc()
+						.outerRadius(outerRadius || radius)
+						.innerRadius(innerRadius);
+
+					if (!svg) {
+						svg = d3.select(this)
+							.append('svg')
+							.attr('width', '100%')
+							.attr('height', '100%')
+							.attr('viewBox', `0 0 ${Math.min(width, height)} ${Math.min(width, height)}`)
+							.attr('preserveAspectRatio', 'xMinYMin')
+							.append('g')
+							.attr('transform', `translate( ${radius + margin.left}, ${radius + margin.top} )`);
+
+						// background circle
+						svg.append('circle')
+							.attr('class', PIE_BKGD_CLASS)
+							.attr('r', d => radius);
+
+						svg.call(tooltip);
+					}
+
+					tooltip.hide;
+					paths = svg.selectAll('path').data(pie(data));
+
+					// enter new data
+					paths
+						.enter()
+						.append('path')
+						.attr('class', (d, i) => {
+							return i === 0 ? MAX_EXTENT_CLASS : i % 2 === 0 ? FILL_ODD_CLASS : FILL_EVEN_CLASS;
+						})
+						.each(function(d, i) {
+							this._current = {
+								data: d,
+								value: dvalue(d.data),
+								startAngle: enterAngles.startAngle,
+								endAngle: enterAngles.endAngle
+							};
+						});
+
+					// transition
+					paths
+						.transition()
+						.duration(tweenTime)
+						.attrTween('d', arcTween);
+
+					// exit old data
+					paths
+						.exit()
+						.transition()
+						.duration(tweenTime)
+						.attrTween('d', arcTweenOut)
+						.remove();
+
+					if (showTooltip) {
+						paths.on('mousemove', tooltip.show)
+							.on('mouseout', tooltip.hide);
+					}
+				});
+			}
+
+			/** getter/setter api to change public defaults */
+			chart.margin = function(_) {
+				if (!arguments.length) {
+					return margin;
+				}
+				margin = _;
+				return chart;
+			};
+
+			chart.innerRadius = function(_) {
+				if (!arguments.length) {
+					return innerRadius;
+				}
+				innerRadius = _;
+				return chart;
+			};
+
+			chart.value = function(_) {
+				if (!arguments.length) {
+					return value;
+				}
+				value = _;
+				return chart;
+			};
+
+
+			chart.showTooltip = function(_) {
+				if (!arguments.length) {
+					return showTooltip;
+				}
+				showTooltip = _;
+				return chart;
+			};
+
+			chart.tooltipHtml = function(_) {
+				if (!arguments.length) {
+					return tooltipHtml;
+				}
+				if (typeof _ === 'function') {
+					tooltipHtml = _;
+				}
+				return chart;
+			};
+
+			return chart;
+		}
+
+
+		// usage example
+		var dataJan = [{
+				name: "Sun",
+				val: 27
+			},
+			{
+				name: "Mon",
+				val: 22
+			},
+			{
+				name: "Tue",
+				val: 66
+			},
+			{
+				name: "Wed",
+				val: 49
+			},
+			{
+				name: "Thu",
+				val: 18
+			},
+			{
+				name: "Fri",
+				val: 65
+			},
+			{
+				name: "Sat",
+				val: 30
+			}
+		];
+
+		var dataFeb = [{
+				name: "Sun",
+				val: 39
+			},
+			{
+				name: "Mon",
+				val: 27
+			},
+			{
+				name: "Tue",
+				val: 142
+			},
+			{
+				name: "Wed",
+				val: 51
+			},
+			{
+				name: "Thu",
+				val: 148
+			},
+			{
+				name: "Fri",
+				val: 78
+			},
+			{
+				name: "Sat",
+				val: 21
+			}
+		];
+
+		var dataMar = [{
+				name: "Sun",
+				val: 27
+			},
+			{
+				name: "Mon",
+				val: 113
+			},
+			{
+				name: "Tue",
+				val: 87
+			},
+			{
+				name: "Wed",
+				val: 139
+			},
+			{
+				name: "Thu",
+				val: 135
+			},
+			{
+				name: "Fri",
+				val: 143
+			},
+			{
+				name: "Sat",
+				val: 123
+			}
+		];
+
+		var dataApr = [{
+				name: "Sun",
+				val: 20
+			},
+			{
+				name: "Mon",
+				val: 519
+			},
+			{
+				name: "Tue",
+				val: 436
+			},
+			{
+				name: "Wed",
+				val: 378
+			},
+			{
+				name: "Thu",
+				val: 239
+			},
+			{
+				name: "Fri",
+				val: 137
+			},
+			{
+				name: "Sat",
+				val: 150
+			}
+		];
+
+		var dataMay = [{
+				name: "Sun",
+				val: 3
+			},
+			{
+				name: "Mon",
+				val: 121
+			},
+			{
+				name: "Tue",
+				val: 131
+			},
+			{
+				name: "Wed",
+				val: 243
+			},
+			{
+				name: "Thu",
+				val: 117
+			},
+			{
+				name: "Fri",
+				val: 167
+			},
+			{
+				name: "Sat",
+				val: 21
+			}
+		];
+
+		var dataJune = [{
+				name: "Sun",
+				val: 1
+			},
+			{
+				name: "Mon",
+				val: 178
+			},
+			{
+				name: "Tue",
+				val: 185
+			},
+			{
+				name: "Wed",
+				val: 146
+			},
+			{
+				name: "Thu",
+				val: 104
+			},
+			{
+				name: "Fri",
+				val: 160
+			},
+			{
+				name: "Sat",
+				val: 14
+			}
+		];
+
+		var dataJuly = [{
+				name: "Sun",
+				val: 0
+			},
+			{
+				name: "Mon",
+				val: 176
+			},
+			{
+				name: "Tue",
+				val: 146
+			},
+			{
+				name: "Wed",
+				val: 130
+			},
+			{
+				name: "Thu",
+				val: 113
+			},
+			{
+				name: "Fri",
+				val: 130
+			},
+			{
+				name: "Sat",
+				val: 5
+			}
+		];
+
+		var dataAug = [{
+				name: "Sun",
+				val: 17
+			},
+			{
+				name: "Mon",
+				val: 220
+			},
+			{
+				name: "Tue",
+				val: 244
+			},
+			{
+				name: "Wed",
+				val: 113
+			},
+			{
+				name: "Thu",
+				val: 205
+			},
+			{
+				name: "Fri",
+				val: 202
+			},
+			{
+				name: "Sat",
+				val: 20
+			}
+		];
+
+		var chart1 = new pieChart()
+			.innerRadius(25)
+			.value('val')
+
+			.showTooltip(true)
+			.tooltipHtml(function(d, i) {
+				return `
+<li class="tip-metric-li">
+	<h3 class="tip-metric-label">${d.data.name}</h3>
+	<span class="tip-metric-value">${d.value}</span>
+</li>
+`;
+			});
+
+		var chart2 = new pieChart()
+			.innerRadius(25)
+			.value('val')
+
+			.showTooltip(true)
+			.tooltipHtml(function(d, i) {
+				return `
+<li class="tip-metric-li">
+	<h3 class="tip-metric-label">${d.data.name}</h3>
+	<span class="tip-metric-value">${d.value}</span>
+</li>
+`;
+			});
+
+		var chart3 = new pieChart()
+			.innerRadius(25)
+			.value('val')
+
+			.showTooltip(true)
+			.tooltipHtml(function(d, i) {
+				return `
+<li class="tip-metric-li">
+	<h3 class="tip-metric-label">${d.data.name}</h3>
+	<span class="tip-metric-value">${d.value}</span>
+</li>
+`;
+			});
+
+		var chart4 = new pieChart()
+			.innerRadius(25)
+			.value('val')
+
+			.showTooltip(true)
+			.tooltipHtml(function(d, i) {
+				return `
+<li class="tip-metric-li">
+	<h3 class="tip-metric-label">${d.data.name}</h3>
+	<span class="tip-metric-value">${d.value}</span>
+</li>
+`;
+			});
+
+		var chart5 = new pieChart()
+			.innerRadius(25)
+			.value('val')
+
+			.showTooltip(true)
+			.tooltipHtml(function(d, i) {
+				return `
+<li class="tip-metric-li">
+	<h3 class="tip-metric-label">${d.data.name}</h3>
+	<span class="tip-metric-value">${d.value}</span>
+</li>
+`;
+			});
+
+		var chart6 = new pieChart()
+			.innerRadius(25)
+			.value('val')
+
+			.showTooltip(true)
+			.tooltipHtml(function(d, i) {
+				return `
+<li class="tip-metric-li">
+	<h3 class="tip-metric-label">${d.data.name}</h3>
+	<span class="tip-metric-value">${d.value}</span>
+</li>
+`;
+			});
+
+		var chart7 = new pieChart()
+			.innerRadius(25)
+			.value('val')
+
+			.showTooltip(true)
+			.tooltipHtml(function(d, i) {
+				return `
+<li class="tip-metric-li">
+	<h3 class="tip-metric-label">${d.data.name}</h3>
+	<span class="tip-metric-value">${d.value}</span>
+</li>
+`;
+			});
+
+		var chart8 = new pieChart()
+			.innerRadius(25)
+			.value('val')
+
+			.showTooltip(true)
+			.tooltipHtml(function(d, i) {
+				return `
+<li class="tip-metric-li">
+	<h3 class="tip-metric-label">${d.data.name}</h3>
+	<span class="tip-metric-value">${d.value}</span>
+</li>
+`;
+			});
+
+		var index = 0;
+		var dataArray = [dataJan, dataFeb, dataMar, dataApr, dataMay, dataJune, dataJuly, dataAug];
+		for (d of dataArray) {
+			d.sort(function(a, b) {
+				return b.val - a.val;
+			});
+		}
+
+
+		d3.select('#chart1')
+			.datum(dataJan)
+			.call(chart1);
+
+		d3.select('#chart2')
+			.datum(dataFeb)
+			.call(chart2);
+
+		d3.select('#chart3')
+			.datum(dataMar)
+			.call(chart3);
+
+		d3.select('#chart4')
+			.datum(dataApr)
+			.call(chart4);
+
+		d3.select('#chart5')
+			.datum(dataMay)
+			.call(chart5);
+
+		d3.select('#chart6')
+			.datum(dataJune)
+			.call(chart6);
+
+		d3.select('#chart7')
+			.datum(dataJuly)
+			.call(chart7);
+
+		d3.select('#chart8')
+			.datum(dataAug)
+			.call(chart8);
+
+	</script>
+
+</body>
+
+</html>
