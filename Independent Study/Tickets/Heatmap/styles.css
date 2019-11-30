@@ -1,4 +1,8 @@
 /* GENERAL STYLES */
+body {
+  height: 100%;
+  position: relative;
+}
 .jumbotron {
   background-color: transparent;
   height: 250px;
@@ -12,6 +16,7 @@
 
 .lead {
   font-family: 'Open Sans';
+  text-align: center;
 }
 
 /* CHART STYLES */
@@ -28,13 +33,20 @@
   font-family: 'Open Sans';
 }
 
+/* FOOTER */
+.page-footer {
+  margin-top: 50px;
+  background-color: lightgray;
+}
+
 /* MEDIA QUERIES */
 @media only screen and (max-width: 600px) {
   .display-4 {
-    font-size: 50px;
+    font-size: 60px;
   }
 
   .lead {
     font-size: 15px;
+    margin-left: 20px;
   }
 }

@@ -31,22 +31,34 @@
 
 	<!-- JUMBOTRON -->
 	<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">THE REAL COST OF PARKING TICKETS</h1>
-    <p class="lead">In 2018, the city of Athens raked in a total of _____ in expired parking meter tickets. See what days of the week tend to be more popular in garnering parking ticket revenue.</p>
-  </div>
-</div>
+		<div class="container">
+			<h1 class="display-4">THE REAL COST OF PARKING TICKETS</h1>
+			<p class="lead">In 2018, the city of Athens raked in a total of $61,430 in expired parking meter tickets. See what days of the week tend to be more popular in garnering parking ticket revenue.</p>
+		</div>
+	</div>
 
 	<!-- CHART -->
 	<div class="container-d3">
 		<div id="my_dataviz"></div>
 	</div>
 
+	<!-- FOOTER -->
+	<footer class="page-footer">
+		<div class="footer-copyright text-center py-3">© 2019 Copyright Taylor Johnston
+		</div>
+	</footer>
+
+	<!-- D3 -->
 	<script>
 		// set the dimensions and margins of the graph
-		var margin = {top: 20, right: 25, bottom: 30, left: 100},
-		  width = 1700 - margin.left - margin.right,
-		  height = 600 - margin.top - margin.bottom;
+		var margin = {
+				top: 20,
+				right: 25,
+				bottom: 30,
+				left: 100
+			},
+			width = 1700 - margin.left - margin.right,
+			height = 600 - margin.top - margin.bottom;
 
 		// append the svg object to the body of the page
 		var svg = d3.select("#my_dataviz")
@@ -94,38 +106,38 @@
 				.interpolator(d3.interpolateYlGn)
 				.domain([1, 900])
 
-				// create a tooltip
-	   var tooltip = d3.select("#my_dataviz")
-	     .append("div")
-	     .style("opacity", 0)
-	     .attr("class", "tooltip")
-	     .style("background-color", "white")
-	     .style("border", "solid")
-	     .style("border-width", "2px")
-	     .style("border-radius", "5px")
-	     .style("padding", "5px")
+			// create a tooltip
+			var tooltip = d3.select("#my_dataviz")
+				.append("div")
+				.style("opacity", 0)
+				.attr("class", "tooltip")
+				.style("background-color", "white")
+				.style("border", "solid")
+				.style("border-width", "2px")
+				.style("border-radius", "5px")
+				.style("padding", "5px")
 
-	   // Three function that change the tooltip when user hover / move / leave a cell
-	   var mouseover = function(d) {
-	     tooltip
-	       .style("opacity", 1)
-	     d3.select(this)
-	       .style("stroke", "black")
-	       .style("opacity", 1)
-	   }
-	   var mousemove = function(d) {
-	     tooltip
-	       .html("The exact value of<br>this cell is: " + d.value)
-	       .style("left", (d3.mouse(this)[0]+70) + "px")
-	       .style("top", (d3.mouse(this)[1]) + "px")
-	   }
-	   var mouseleave = function(d) {
-	     tooltip
-	       .style("opacity", 0)
-	     d3.select(this)
-	       .style("stroke", "none")
-	       .style("opacity", 0.8)
-	   }
+			// Three function that change the tooltip when user hover / move / leave a cell
+			var mouseover = function(d) {
+				tooltip
+					.style("opacity", 1)
+				d3.select(this)
+					.style("stroke", "black")
+					.style("opacity", 1)
+			}
+			var mousemove = function(d) {
+				tooltip
+					.html("The exact value of<br>this cell is: " + d.value)
+					.style("left", (d3.mouse(this)[0] + 70) + "px")
+					.style("top", (d3.mouse(this)[1]) + "px")
+			}
+			var mouseleave = function(d) {
+				tooltip
+					.style("opacity", 0)
+				d3.select(this)
+					.style("stroke", "none")
+					.style("opacity", 0.8)
+			}
 
 			// add the squares
 			svg.selectAll()
@@ -172,6 +184,7 @@
 		// 	.style("fill", "grey")
 		// 	.style("max-width", 400)
 		// 	.text("A short description of the take-away message of this chart.");
+
 	</script>
 
 	<!-- Optional JavaScript -->
@@ -179,8 +192,6 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-
 
 </body>
 
