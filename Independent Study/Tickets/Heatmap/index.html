@@ -28,12 +28,13 @@
 
 <body>
 
-
 	<!-- JUMBOTRON -->
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container">
-			<h1 class="display-4">THE REAL COST OF PARKING TICKETS</h1>
-			<p class="lead">In 2018, the city of Athens raked in a total of $61,430 in expired parking meter tickets. See what days of the week tend to be more popular in garnering parking ticket revenue.</p>
+			<!-- <h1 class="display-4">THE REAL COST OF PARKING TICKETS</h1> -->
+			<!-- <h1 class="display-4">HOW MUCH MONEY DOES ATHENS BRING IN FROM PARKING TICKETS?</h1> -->
+			<h1 class="display-4">ATHENS RAKES IN PARKING TICKET REVENUE</h1>
+			<p class="lead">In 2018, the city of Athens raked in a total of $61,430 in expired parking meter tickets. See what days of the week tend to be more popular in garnering the city revenue through parking tickets.</p>
 		</div>
 	</div>
 
@@ -48,11 +49,14 @@
 		</div>
 	</footer>
 
+	<!-- LEGEND -->
+
+
 	<!-- D3 -->
 	<script>
 		// set the dimensions and margins of the graph
 		var margin = {
-				top: 20,
+				top: 30,
 				right: 25,
 				bottom: 30,
 				left: 100
@@ -103,8 +107,8 @@
 
 			// Build color scale
 			var myColor = d3.scaleSequential()
-				.interpolator(d3.interpolateYlGn)
-				.domain([1, 900])
+				.interpolator(d3.interpolateBuGn)
+				.domain([1, 700])
 
 			// create a tooltip
 			var tooltip = d3.select("#my_dataviz")
@@ -127,7 +131,7 @@
 			}
 			var mousemove = function(d) {
 				tooltip
-					.html("The exact value of<br>this cell is: " + d.value)
+					.html("The city gained " + "$" + d.value + " on this day")
 					.style("left", (d3.mouse(this)[0] + 70) + "px")
 					.style("top", (d3.mouse(this)[1]) + "px")
 			}
