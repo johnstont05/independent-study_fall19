@@ -11,62 +11,47 @@
 	<link href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 	<!-- Google Fonts stylesheet -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Open+Sans:400,800&display=swap" rel="stylesheet">
+
 
 	<!-- Other styles -->
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<script src="scripts.js"></script>
 
-	<!-- D3.js -->
+	<!-- Load d3.js -->
 	<script src="https://d3js.org/d3.v4.js"></script>
+
+	<!-- Load color palettes -->
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
 </head>
 
 <body>
-	<!-- jumbotron -->
-	<div class="jumbotron blue white-type">
-		<div class="container">
-			<h5>Independent Study</h5>
-			<h1 class="display-4">HEADLINE</h1>
-			<p class="lead">
-				How expired meter tickets contribute to the city of Athens revenue.
-			</p>
-		</div>
+
+
+	<!-- JUMBOTRON -->
+	<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">THE REAL COST OF PARKING TICKETS</h1>
+    <p class="lead">In 2018, the city of Athens raked in a total of _____ in expired parking meter tickets. See what days of the week tend to be more popular in garnering parking ticket revenue.</p>
+  </div>
+</div>
+
+	<!-- CHART -->
+	<div class="container-d3">
+		<div id="my_dataviz"></div>
 	</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="col-6">
-				<div id="my_dataviz"></div>
-			</div>
-		</div>
-	</div>
-
-
-	<!--  Footer -->
-	<footer class="dark-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<p>Taylor Johnston © 2019</p>
-				</div>
-				<div class="col">
-					<p class="float-right"><a href="#">Back to top</a></p>
-				</div>
-			</div>
-		</div>
-	</footer>
 
 	<script>
 		// set the dimensions and margins of the graph
 		var margin = {
-				top: 80,
-				right: 52,
-				bottom: 30,
-				left: 40
+				top: 10,
+				right: 50,
+				bottom: 20,
+				left: 100
 			},
-			width = 1400 - margin.left - margin.right,
-			height = 500 - margin.top - margin.bottom;
+			width = 1700 - margin.left - margin.right,
+			height = 600 - margin.top - margin.bottom;
 
 		// append the svg object to the body of the page
 		var svg = d3.select("#my_dataviz")
@@ -94,7 +79,7 @@
 				.domain(myGroups)
 				.padding(0.05);
 			svg.append("g")
-				.style("font-size", 10)
+				.style("font-size", 15)
 				.attr("transform", "translate(0," + height + ")")
 				.call(d3.axisBottom(x).tickSize(0))
 				.select(".domain").remove()
@@ -105,14 +90,14 @@
 				.domain(myVars)
 				.padding(0.05);
 			svg.append("g")
-				.style("font-size", 10)
+				.style("font-size", 15)
 				.call(d3.axisLeft(y).tickSize(0))
 				.select(".domain").remove()
 
 			// Build color scale
-			var myColor = d3.scaleLinear()
-				.range(["#C8EEE9", "#004615"])
-				.domain([1, 600])
+			var myColor = d3.scaleSequential()
+				.interpolator(d3.interpolateYlGn)
+				.domain([1, 900])
 
 			// create a tooltip
 			var tooltip = d3.select("#my_dataviz")
@@ -135,7 +120,7 @@
 			}
 			var mousemove = function(d) {
 				tooltip
-					.html("The city earned " + "$" + d.value + "<br>in ticket revenue")
+					.html("The exact value of<br>this cell is: " + d.value)
 					.style("left", (d3.mouse(this)[0] + 70) + "px")
 					.style("top", (d3.mouse(this)[1]) + "px")
 			}
@@ -175,32 +160,31 @@
 				.on("mouseleave", mouseleave)
 		})
 
-		// Add title to graph
-		svg.append("text")
-			.attr("x", 0)
-			.attr("y", -50)
-			.attr("text-anchor", "left")
-			.style("font-size", "22px")
-			.text("A d3.js heatmap");
-
-		// Add subtitle to graph
-		svg.append("text")
-			.attr("x", 0)
-			.attr("y", -20)
-			.attr("text-anchor", "left")
-			.style("font-size", "14px")
-			.style("fill", "grey")
-			.style("max-width", 400)
-			.text("A short description of the take-away message of this chart.");
+		// // Add title to graph
+		// svg.append("text")
+		// 	.attr("x", 0)
+		// 	.attr("y", -50)
+		// 	.attr("text-anchor", "left")
+		// 	.style("font-size", "22px")
+		// 	.text("A d3.js heatmap");
+		//
+		// // Add subtitle to graph
+		// svg.append("text")
+		// 	.attr("x", 0)
+		// 	.attr("y", -20)
+		// 	.attr("text-anchor", "left")
+		// 	.style("font-size", "14px")
+		// 	.style("fill", "grey")
+		// 	.style("max-width", 400)
+		// 	.text("A short description of the take-away message of this chart.");
 	</script>
 
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-	<!-- JavaScript dependencies: first jQuery, then Popper.js, then Bootstrap JS -->
-	<script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
-	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
-	<script src="https://unpkg.com/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.min.js"></script>
 
 
 </body>
