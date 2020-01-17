@@ -34,7 +34,7 @@
 			<!-- <h1 class="display-4">THE REAL COST OF PARKING TICKETS</h1> -->
 			<!-- <h1 class="display-4">HOW MUCH MONEY DOES ATHENS BRING IN FROM PARKING TICKETS?</h1> -->
 			<h1 class="display-4">ATHENS RAKES IN PARKING TICKET REVENUE</h1>
-			<p class="lead">In 2018, the city of Athens raked in a total of $61,430 in expired parking meter tickets. See what days of the week tend to be more popular in garnering the city revenue through parking tickets.</p>
+			<p class="lead">In 2018, the city of Athens raked in a total of $61,430 in expired parking meter tickets. See what days of the week tend to generate more revenue through parking tickets.</p>
 		</div>
 	</div>
 
@@ -133,8 +133,9 @@
 				tooltip
 					.html("The city gained " + "$" + d.value + " on this day")
 					.style("left", (d3.mouse(this)[0] + 70) + "px")
-					.style("top", (d3.mouse(this)[1]) + "px")
+					.style("top", (d3.mouse(this)[1] + 200) + "px")
 			}
+
 			var mouseleave = function(d) {
 				tooltip
 					.style("opacity", 0)
